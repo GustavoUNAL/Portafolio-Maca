@@ -1,0 +1,33 @@
+<!-- wp:template-part {"slug":"header","area":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"nasly-main","layout":{"type":"constrained"}} -->
+<main id="wp--skip-link--target" class="wp-block-group nasly-main">
+	<!-- wp:group {"className":"nasly-hero nasly-hero--corto","layout":{"type":"default"}} -->
+	<div class="wp-block-group nasly-hero nasly-hero--corto">
+		<!-- wp:group {"className":"nasly-kicker nasly-chips","layout":{"type":"flex","flexWrap":"wrap"}} -->
+		<div class="wp-block-group nasly-kicker nasly-chips">
+			<!-- wp:post-terms {"term":"disciplina"} /-->
+			<!-- wp:post-date {"format":"Y","className":"nasly-chip"} /-->
+		</div>
+		<!-- /wp:group -->
+		<!-- wp:post-title {"level":1,"className":"nasly-titular"} /-->
+		<!-- wp:post-excerpt {"className":"is-style-entrada"} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"nasly-caso","layout":{"type":"default"}} -->
+	<div class="wp-block-group nasly-caso">
+		<!-- wp:post-content {"layout":{"type":"default"}} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"nasly-navegacion","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+	<div class="wp-block-group nasly-navegacion">
+		<!-- wp:post-navigation-link {"type":"previous","label":"Anterior","showTitle":true,"linkLabel":true} /-->
+		<!-- wp:post-navigation-link {"type":"next","label":"Siguiente","showTitle":true,"linkLabel":true} /-->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","area":"footer"} /-->

@@ -1,0 +1,33 @@
+<!-- wp:template-part {"slug":"header","area":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"nasly-main","layout":{"type":"constrained"}} -->
+<main id="wp--skip-link--target" class="wp-block-group nasly-main">
+	<!-- wp:group {"className":"nasly-hero nasly-hero--corto","layout":{"type":"default"}} -->
+	<div class="wp-block-group nasly-hero nasly-hero--corto">
+		<!-- wp:query-title {"type":"archive","className":"nasly-titular"} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:query {"queryId":1,"query":{"perPage":12,"pages":0,"offset":0,"postType":"proyecto","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"className":"nasly-seccion"} -->
+	<div class="wp-block-query nasly-seccion">
+		<!-- wp:post-template {"className":"nasly-rejilla","layout":{"type":"grid","columnCount":3}} -->
+			<!-- wp:group {"className":"nasly-tarjeta","layout":{"type":"default"}} -->
+			<div class="wp-block-group nasly-tarjeta">
+				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /-->
+				<!-- wp:group {"className":"nasly-tarjeta__meta","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+				<div class="wp-block-group nasly-tarjeta__meta">
+					<!-- wp:post-terms {"term":"disciplina"} /-->
+					<!-- wp:post-date {"format":"Y"} /-->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:post-title {"isLink":true,"level":3} /-->
+				<!-- wp:post-excerpt {"excerptLength":28} /-->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+	</div>
+	<!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","area":"footer"} /-->
