@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NASLY_VERSION', '2.5.0' );
+define( 'NASLY_VERSION', '3.0.0' );
+
+require_once get_template_directory() . '/inc/journal.php';
 
 /**
  * Soporte del tema, estilos de bloque y assets.

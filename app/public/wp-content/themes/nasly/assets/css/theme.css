@@ -158,6 +158,41 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 
 .nasly-nav { gap: 28px; }
+.nasly-nav__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 28px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+}
+.nasly-nav__list a {
+	color: var(--muted);
+	text-decoration: none;
+	font-size: 0.92rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	position: relative;
+}
+.nasly-nav__list a:hover { color: var(--text); }
+.nasly-nav__list a::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 1px;
+	background: var(--moss);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.25s ease;
+}
+.nasly-nav__list a:hover::after { transform: scaleX(1); }
+@media (max-width: 720px) {
+	.nasly-nav__list { gap: 6px 16px; }
+	.nasly-nav__list a { font-size: 0.78rem; }
+}
 .nasly-nav .wp-block-navigation-item__content {
  position: relative;
  font-family: var(--body);
@@ -1067,7 +1102,9 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  line-height: 1.6;
  color: var(--text-soft);
 }
+.maca-entrada__media a,
 .maca-entrada__media .wp-block-post-featured-image {
+ display: block;
  margin: 0;
  overflow: hidden;
  border: 1px solid var(--line-2);
@@ -1078,6 +1115,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  display: block;
  width: 100%;
  height: auto;
+ aspect-ratio: 4 / 5;
  object-fit: cover;
  object-position: center 20%;
  filter: contrast(1.04) saturate(1.08);
@@ -1087,6 +1125,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  transform: scale(1.05);
  filter: contrast(1.06) saturate(1.15);
 }
+.maca-entrada:hover .maca-entrada__media a,
 .maca-entrada:hover .maca-entrada__media .wp-block-post-featured-image {
  border-color: rgba(205, 252, 138, 0.55);
 }

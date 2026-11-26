@@ -1,7 +1,9 @@
 # Despliegue MACA → portafolio.justcamm.online
 
-Usa el **Nginx que ya tienes** (PM2 y otros sitios no se tocan).  
-Solo se añade un vhost nuevo y se hace `nginx reload`.
+El Visual Journal va **embebido en el tema** (fotos + textos).  
+**No hace falta importar la base de datos** para ver el contenido.
+
+Nginx se mantiene (PM2 intacto). Solo se añade/actualiza el vhost y el tema.
 
 ## DNS
 
@@ -9,33 +11,28 @@ Solo se añade un vhost nuevo y se hace `nginx reload`.
 |------|--------|--------|
 | A | `portafolio` | `51.222.24.228` |
 
-URL: https://portafolio.justcamm.online
-
-## En el VPS
+## En el VPS (contenido + fotos)
 
 ```bash
 ssh ubuntu@51.222.24.228
 git clone https://github.com/GustavoUNAL/Portafolio-Maca.git ~/Portafolio-Maca
-# si ya existe: git -C ~/Portafolio-Maca pull
-sudo bash ~/Portafolio-Maca/vps/deploy-on-server.sh
-```
+# si ya existe:
+git -C ~/Portafolio-Maca pull
 
-Eso:
+# Primera vez (vhost Nginx, sin apagar el servicio):
+sudo bash ~/Portafolio-Maca/vps/setup-nginx-site.sh
 
-1. Actualiza el repo  
-2. Añade el sitio Nginx `portafolio.justcamm.online` (**sin apagar Nginx**)  
-3. Copia tema + uploads a `/var/www/justcamm`  
-4. Activa el tema  
-
-## Base de datos completa (desde tu Mac)
-
-```bash
-cd "/Users/gustavoarteaga0608gmail.com/Local Sites/portafolio"
-./deploy.sh
+# Siempre que actualices:
+sudo bash ~/Portafolio-Maca/vps/deploy-theme-only.sh
 ```
 
 ## Verificar
 
-Abre: https://portafolio.justcamm.online  
+- https://portafolio.justcamm.online  
+- https://portafolio.justcamm.online/visual-journal/  
+- Entradas con imágenes y el GIF de proceso  
 
-Comprueba que tu app PM2 sigue en pie (`pm2 status`).
+```bash
+pm2 status
+sudo systemctl status nginx --no-pager | head -8
+```

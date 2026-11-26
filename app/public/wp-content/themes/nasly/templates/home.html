@@ -43,38 +43,9 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:query {"queryId":10,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"maca-journal__query maca-journal__query--home"} -->
-		<div class="wp-block-query maca-journal__query maca-journal__query--home">
-			<!-- wp:post-template {"className":"maca-journal__list","layout":{"type":"default"}} -->
-				<!-- wp:group {"tagName":"article","className":"maca-entrada","layout":{"type":"default"}} -->
-				<article class="wp-block-group maca-entrada">
-					<!-- wp:columns {"className":"maca-entrada__row"} -->
-					<div class="wp-block-columns maca-entrada__row">
-						<!-- wp:column {"width":"14%","className":"maca-entrada__folio"} -->
-						<div class="wp-block-column maca-entrada__folio" style="flex-basis:14%">
-							<!-- wp:paragraph {"className":"maca-entrada__num"} -->
-							<p class="maca-entrada__num"></p>
-							<!-- /wp:paragraph -->
-						</div>
-						<!-- /wp:column -->
-						<!-- wp:column {"width":"48%"} -->
-						<div class="wp-block-column" style="flex-basis:48%">
-							<!-- wp:post-title {"isLink":true,"level":2,"className":"maca-entrada__heading"} /-->
-							<!-- wp:post-excerpt {"excerptLength":28,"className":"maca-entrada__excerpt"} /-->
-						</div>
-						<!-- /wp:column -->
-						<!-- wp:column {"width":"38%","className":"maca-entrada__media"} -->
-						<div class="wp-block-column maca-entrada__media" style="flex-basis:38%">
-							<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/5"} /-->
-						</div>
-						<!-- /wp:column -->
-					</div>
-					<!-- /wp:columns -->
-				</article>
-				<!-- /wp:group -->
-			<!-- /wp:post-template -->
-		</div>
-		<!-- /wp:query -->
+		<!-- wp:shortcode -->
+		[maca_journal]
+		<!-- /wp:shortcode -->
 	</div>
 	<!-- /wp:group -->
 
