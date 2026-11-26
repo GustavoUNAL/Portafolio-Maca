@@ -1,7 +1,44 @@
 /* =========================================================================
  MACA — Header negro #050308 · Body púrpura #3C183C · Texto lima #CDFC8A
  Fraunces (display) + Manrope (body)
+ Estilos autocontenidos (no dependen de wp-block-library en el VPS).
  ========================================================================= */
+
+@font-face {
+ font-family: "Fraunces";
+ src: url("../fonts/fraunces-variable.woff2") format("woff2");
+ font-weight: 100 900;
+ font-style: normal;
+ font-display: swap;
+}
+@font-face {
+ font-family: "Fraunces";
+ src: url("../fonts/fraunces-variable-italic.woff2") format("woff2");
+ font-weight: 100 900;
+ font-style: italic;
+ font-display: swap;
+}
+@font-face {
+ font-family: "Manrope";
+ src: url("../fonts/manrope-variable.woff2") format("woff2");
+ font-weight: 200 800;
+ font-style: normal;
+ font-display: swap;
+}
+@font-face {
+ font-family: "JetBrains Mono";
+ src: url("../fonts/jetbrains-mono-400.woff2") format("woff2");
+ font-weight: 400;
+ font-style: normal;
+ font-display: swap;
+}
+@font-face {
+ font-family: "JetBrains Mono";
+ src: url("../fonts/jetbrains-mono-500.woff2") format("woff2");
+ font-weight: 500;
+ font-style: normal;
+ font-display: swap;
+}
 
 :root {
  --header: #050308;
@@ -1091,13 +1128,28 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 .maca-entrada__meta a { color: var(--moss); text-decoration: none; }
 .maca-entrada__meta a:hover { color: var(--violet); }
 
-.wp-block-columns.maca-entrada__row {
- gap: 24px 40px;
- align-items: start;
- margin: 0;
+.wp-block-columns.maca-entrada__row,
+.maca-entrada__row {
+ display: flex !important;
+ flex-direction: row !important;
  flex-wrap: nowrap !important;
+ gap: 24px 40px;
+ align-items: flex-start;
+ margin: 0;
+ width: 100%;
+ box-sizing: border-box;
 }
-.maca-entrada__row > .wp-block-column { flex-shrink: 1; min-width: 0; }
+.maca-entrada__row > .wp-block-column,
+.maca-entrada__row > .maca-entrada__folio,
+.maca-entrada__row > .maca-entrada__copy,
+.maca-entrada__row > .maca-entrada__media {
+ flex-shrink: 1;
+ min-width: 0;
+ box-sizing: border-box;
+}
+.maca-entrada__folio { flex: 0 0 14%; max-width: 14%; }
+.maca-entrada__copy { flex: 1 1 48%; max-width: 48%; }
+.maca-entrada__media { flex: 0 0 38%; max-width: 38%; }
 .maca-entrada__num {
  margin: 0;
  font-family: var(--display);
@@ -1156,14 +1208,27 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  border-color: rgba(205, 252, 138, 0.55);
 }
 
-@media (max-width: 781px) {
- .wp-block-columns.maca-entrada__row {
-  flex-direction: column;
+@media (max-width: 900px) {
+ .wp-block-columns.maca-entrada__row,
+ .maca-entrada__row {
   flex-wrap: wrap !important;
  }
- .maca-entrada__folio { order: 0; }
- .maca-entrada__media { order: 1; width: 100%; flex-basis: 100% !important; }
- .maca-entrada__copy { order: 2; flex-basis: 100% !important; }
+ .maca-entrada__folio {
+  order: 0;
+  flex: 0 0 auto !important;
+  max-width: none !important;
+ }
+ .maca-entrada__media {
+  order: 1;
+  flex: 1 1 100% !important;
+  max-width: 420px !important;
+  width: 100%;
+ }
+ .maca-entrada__copy {
+  order: 2;
+  flex: 1 1 100% !important;
+  max-width: 100% !important;
+ }
 }
 
 /* ---------- MACA Single entrada ----------------------------------------- */

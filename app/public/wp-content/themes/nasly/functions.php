@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NASLY_VERSION', '3.1.0' );
+define( 'NASLY_VERSION', '3.1.1' );
 
 require_once get_template_directory() . '/inc/journal.php';
 
@@ -104,13 +104,19 @@ function nasly_setup(): void {
 add_action( 'after_setup_theme', 'nasly_setup' );
 
 /**
- * Encola CSS y JS del tema.
+ * Encola CSS y JS del tema (+ estilos de bloques para igualar Local).
  */
 function nasly_enqueue_assets(): void {
+	// Misma base visual que Local (bloques + tipografías del theme.json).
+	wp_enqueue_style( 'wp-block-library' );
+	if ( function_exists( 'wp_enqueue_global_styles' ) ) {
+		wp_enqueue_global_styles();
+	}
+
 	wp_enqueue_style(
 		'nasly',
 		get_template_directory_uri() . '/assets/css/theme.css',
-		array(),
+		array( 'wp-block-library' ),
 		NASLY_VERSION
 	);
 

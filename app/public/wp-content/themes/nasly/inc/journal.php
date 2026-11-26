@@ -243,16 +243,16 @@ function maca_render_entry_body( array $entry ): string {
 function maca_render_entrada_row( array $entry ): string {
 	$url = esc_url( maca_entry_url( $entry['slug'] ) );
 	return sprintf(
-		'<article class="wp-block-group maca-entrada">
-			<div class="wp-block-columns maca-entrada__row">
-				<div class="wp-block-column maca-entrada__folio" style="flex-basis:14%%">
+		'<article class="maca-entrada">
+			<div class="maca-entrada__row">
+				<div class="maca-entrada__folio">
 					<p class="maca-entrada__num" aria-hidden="true"></p>
 				</div>
-				<div class="wp-block-column maca-entrada__copy" style="flex-basis:48%%">
+				<div class="maca-entrada__copy">
 					<h2 class="maca-entrada__heading"><a href="%s">%s</a></h2>
 					<p class="maca-entrada__excerpt">%s</p>
 				</div>
-				<div class="wp-block-column maca-entrada__media" style="flex-basis:38%%">
+				<div class="maca-entrada__media">
 					<a href="%s"><img src="%s" alt="%s" loading="lazy" decoding="async"/></a>
 				</div>
 			</div>
