@@ -10,33 +10,39 @@ Servidor web: **Caddy** (no Nginx). SSL automático con Let's Encrypt.
 
 URL: https://portafolio.justcamm.online
 
-## 1) Primera vez en el VPS (Caddy)
+## Opción A — Desplegar EN el VPS (recomendado)
 
-Desde tu Mac:
+Conéctate por SSH y ejecuta:
 
 ```bash
-cd "/Users/gustavoarteaga0608gmail.com/Local Sites/portafolio"
-scp -r vps ubuntu@51.222.24.228:~/
 ssh ubuntu@51.222.24.228
-sudo bash ~/vps/setup-caddy.sh
+git clone https://github.com/GustavoUNAL/Portafolio-Maca.git ~/Portafolio-Maca
+# si ya existe: git -C ~/Portafolio-Maca pull
+sudo bash ~/Portafolio-Maca/vps/deploy-on-server.sh
 ```
 
-Eso detiene Nginx, instala Caddy y sirve WordPress en `/var/www/justcamm`.
+Eso clona el repo, instala **Caddy** (apaga Nginx), copia tema + uploads a `/var/www/justcamm` y activa el tema.
 
-Si `texno.site` también está en este VPS, descomenta su bloque en `/etc/caddy/Caddyfile` y:
-
-```bash
-sudo systemctl reload caddy
-```
-
-## 2) Desplegar el sitio (tema + DB + medios)
+Luego, para la base de datos completa (posts, páginas), desde tu Mac:
 
 ```bash
 cd "/Users/gustavoarteaga0608gmail.com/Local Sites/portafolio"
 ./deploy.sh
 ```
 
-Reemplaza `http://portafolio.local` → `https://portafolio.justcamm.online`.
+## Opción B — Solo Caddy la primera vez
+
+```bash
+scp -r vps ubuntu@51.222.24.228:~/
+ssh ubuntu@51.222.24.228
+sudo bash ~/vps/setup-caddy.sh
+```
+
+Si `texno.site` también está en este VPS, descomenta su bloque en `/etc/caddy/Caddyfile` y:
+
+```bash
+sudo systemctl reload caddy
+```
 
 ## Verificar
 
