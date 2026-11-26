@@ -1,0 +1,29 @@
+# Caddy — portafolio.justcamm.online (sin Nginx)
+# DNS: A portafolio → 51.222.24.228
+# Instalar: sudo bash vps/setup-caddy.sh
+
+portafolio.justcamm.online {
+	root * /var/www/justcamm
+	encode gzip zstd
+	php_fastcgi unix//run/php/php8.4-fpm.sock
+	file_server
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	@static {
+		path *.css *.js *.jpg *.jpeg *.png *.gif *.webp *.svg *.woff *.woff2 *.mp4 *.webm
+	}
+	header @static Cache-Control "public, max-age=2592000"
+}
+
+# Si texno.site sigue en este VPS, descomenta y apunta al docroot correcto:
+# texno.site, www.texno.site {
+# 	root * /var/www/texno
+# 	encode gzip zstd
+# 	php_fastcgi unix//run/php/php8.4-fpm.sock
+# 	file_server
+# }

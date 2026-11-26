@@ -1,6 +1,9 @@
 # Portafolio-Maca
 
-Portafolio visual de **MACA** — Visual Journal editorial en WordPress (Local → VPS).
+Portafolio visual de **MACA** — Visual Journal editorial en WordPress.
+
+**Producción:** https://portafolio.justcamm.online  
+**Servidor web:** Caddy (PHP-FPM) — sin Nginx
 
 ## Identidad
 
@@ -31,15 +34,11 @@ Tema activo: **nasly**
 
 ## Despliegue al VPS
 
-1. Completa `deploy.env` (ya apunta a `portafolio.texno.site`)
-2. En el VPS debe existir WordPress en `/var/www/portafolio-maca`
-3. Desde esta carpeta:
+1. DNS: A `portafolio` → `51.222.24.228`
+2. Primera vez: `sudo bash vps/setup-caddy.sh` en el VPS
+3. Desde esta carpeta: `./deploy.sh`
 
-```bash
-./deploy.sh
-```
-
-Eso sube tema + uploads + base de datos y reemplaza `http://portafolio.local` → `https://portafolio.texno.site`.
+Detalle en [DEPLOY.md](DEPLOY.md).
 
 ## Repositorio
 
