@@ -310,7 +310,7 @@ function maca_query_vars( array $vars ): array {
 add_filter( 'query_vars', 'maca_query_vars' );
 
 /**
- * Plantillas PHP para rutas estáticas.
+ * Plantillas PHP para rutas estáticas + portada forzada.
  *
  * @param string $template Plantilla.
  */
@@ -340,19 +340,70 @@ function maca_template_include( string $template ): string {
 		return $dir . '/sobre-mi.php';
 	}
 
+	// Portada / blog index: siempre el Visual Journal estático (nunca "Hello world").
+	if ( is_front_page() || is_home() ) {
+		return $dir . '/home.php';
+	}
+
 	return $template;
 }
 add_filter( 'template_include', 'maca_template_include', 99 );
 
 /**
- * Flush rewrites al actualizar el tema.
+ * Borra plantillas FSE guardadas en la DB que pisan los archivos del tema.
+ */
+function maca_purge_custom_templates(): void {
+	$slugs = array( 'front-page', 'home', 'index', 'page-visual-journal', 'single' );
+	foreach ( $slugs as $slug ) {
+		$posts = get_posts(
+			array(
+				'post_type'      => array( 'wp_template', 'wp_template_part' ),
+				'name'           => $slug,
+				'post_status'    => 'any',
+				'posts_per_page' => 20,
+				'fields'         => 'ids',
+			)
+		);
+		foreach ( $posts as $id ) {
+			wp_delete_post( (int) $id, true );
+		}
+	}
+
+	// También por taxonomía theme nasly.
+	$q = new WP_Query(
+		array(
+			'post_type'      => array( 'wp_template', 'wp_template_part' ),
+			'post_status'    => 'any',
+			'posts_per_page' => 50,
+			'fields'         => 'ids',
+			'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				array(
+					'taxonomy' => 'wp_theme',
+					'field'    => 'name',
+					'terms'    => 'nasly',
+				),
+			),
+		)
+	);
+	foreach ( $q->posts as $id ) {
+		$slug = get_post_field( 'post_name', $id );
+		if ( in_array( $slug, array( 'front-page', 'home', 'index', 'header', 'page-visual-journal' ), true ) ) {
+			wp_delete_post( (int) $id, true );
+		}
+	}
+}
+
+/**
+ * Flush rewrites + limpia overrides FSE al actualizar el tema.
  */
 function maca_maybe_flush_rewrites(): void {
 	$ver = get_option( 'maca_rewrite_ver' );
 	if ( NASLY_VERSION !== $ver ) {
 		maca_register_rewrites();
+		maca_purge_custom_templates();
 		flush_rewrite_rules( false );
 		update_option( 'maca_rewrite_ver', NASLY_VERSION );
+		update_option( 'show_on_front', 'posts' );
 	}
 }
 add_action( 'init', 'maca_maybe_flush_rewrites', 20 );

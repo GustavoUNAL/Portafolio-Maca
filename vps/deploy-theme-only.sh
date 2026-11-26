@@ -26,9 +26,14 @@ sudo chown -R www-data:www-data "$THEME_DST"
 if command -v wp >/dev/null 2>&1 && [[ -f "$WP_PATH/wp-config.php" ]]; then
   cd "$WP_PATH"
   sudo -u www-data wp theme activate nasly || true
+  sudo -u www-data wp option update show_on_front posts || true
+  # Quita plantillas FSE en DB que muestran "Hello world"
+  sudo -u www-data wp post list --post_type=wp_template --format=ids 2>/dev/null | xargs -r -n1 sudo -u www-data wp post delete --force 2>/dev/null || true
   sudo -u www-data wp rewrite flush || true
   sudo -u www-data wp cache flush || true
+  # Fuerza bump de versión del tema para purge interno
+  sudo -u www-data wp option delete maca_rewrite_ver 2>/dev/null || true
 fi
 
 echo "OK — tema estático con fotos en $THEME_DST"
-echo "Abre https://portafolio.justcamm.online"
+echo "Abre https://portafolio.justcamm.online (Ctrl+Shift+R)"

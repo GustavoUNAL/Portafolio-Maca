@@ -1045,7 +1045,8 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  padding: 0;
  counter-reset: maca-folio;
 }
-.maca-journal__list > li {
+.maca-journal__list > li,
+.maca-journal__list > .maca-entrada {
  margin: 0;
  padding: 0;
  border-top: 1px solid var(--line-2);
@@ -1053,6 +1054,31 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 .maca-entrada {
  padding: clamp(28px, 4vw, 48px) 0;
  counter-increment: maca-folio;
+ border-top: 1px solid var(--line-2);
+}
+.maca-home {
+ max-width: 1180px;
+ margin-inline: auto;
+ padding-inline: clamp(20px, 4vw, 40px);
+ padding-bottom: clamp(48px, 8vw, 96px);
+}
+.maca-home__journal { margin-top: clamp(24px, 4vw, 48px); }
+.maca-home .nasly-encabezado {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ align-items: flex-end;
+ gap: 16px;
+ margin-bottom: 8px;
+}
+.maca-home__cta {
+ margin-top: clamp(40px, 6vw, 72px);
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ align-items: center;
+ gap: 24px;
+ padding: clamp(28px, 4vw, 40px);
 }
 .maca-entrada__meta {
  margin-bottom: 18px !important;
