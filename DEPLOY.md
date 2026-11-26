@@ -1,6 +1,7 @@
 # Despliegue MACA → portafolio.justcamm.online
 
-Servidor web: **Caddy** (no Nginx). SSL automático con Let's Encrypt.
+Usa el **Nginx que ya tienes** (PM2 y otros sitios no se tocan).  
+Solo se añade un vhost nuevo y se hace `nginx reload`.
 
 ## DNS
 
@@ -10,9 +11,7 @@ Servidor web: **Caddy** (no Nginx). SSL automático con Let's Encrypt.
 
 URL: https://portafolio.justcamm.online
 
-## Opción A — Desplegar EN el VPS (recomendado)
-
-Conéctate por SSH y ejecuta:
+## En el VPS
 
 ```bash
 ssh ubuntu@51.222.24.228
@@ -21,29 +20,22 @@ git clone https://github.com/GustavoUNAL/Portafolio-Maca.git ~/Portafolio-Maca
 sudo bash ~/Portafolio-Maca/vps/deploy-on-server.sh
 ```
 
-Eso clona el repo, instala **Caddy** (apaga Nginx), copia tema + uploads a `/var/www/justcamm` y activa el tema.
+Eso:
 
-Luego, para la base de datos completa (posts, páginas), desde tu Mac:
+1. Actualiza el repo  
+2. Añade el sitio Nginx `portafolio.justcamm.online` (**sin apagar Nginx**)  
+3. Copia tema + uploads a `/var/www/justcamm`  
+4. Activa el tema  
+
+## Base de datos completa (desde tu Mac)
 
 ```bash
 cd "/Users/gustavoarteaga0608gmail.com/Local Sites/portafolio"
 ./deploy.sh
 ```
 
-## Opción B — Solo Caddy la primera vez
-
-```bash
-scp -r vps ubuntu@51.222.24.228:~/
-ssh ubuntu@51.222.24.228
-sudo bash ~/vps/setup-caddy.sh
-```
-
-Si `texno.site` también está en este VPS, descomenta su bloque en `/etc/caddy/Caddyfile` y:
-
-```bash
-sudo systemctl reload caddy
-```
-
 ## Verificar
 
-Abre: https://portafolio.justcamm.online
+Abre: https://portafolio.justcamm.online  
+
+Comprueba que tu app PM2 sigue en pie (`pm2 status`).

@@ -3,7 +3,7 @@
 Portafolio visual de **MACA** — Visual Journal editorial en WordPress.
 
 **Producción:** https://portafolio.justcamm.online  
-**Servidor web:** Caddy (PHP-FPM) — sin Nginx
+**Servidor:** Nginx (vhost nuevo; no se apaga el servicio — PM2 intacto)
 
 ## Identidad
 
@@ -35,8 +35,8 @@ Tema activo: **nasly**
 ## Despliegue al VPS
 
 1. DNS: A `portafolio` → `51.222.24.228`
-2. Primera vez: `sudo bash vps/setup-caddy.sh` en el VPS
-3. Desde esta carpeta: `./deploy.sh`
+2. En el VPS: `sudo bash ~/Portafolio-Maca/vps/deploy-on-server.sh`
+3. Desde la Mac (DB completa): `./deploy.sh`
 
 Detalle en [DEPLOY.md](DEPLOY.md).
 

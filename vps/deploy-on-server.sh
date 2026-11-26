@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Ejecutar EN el VPS (como ubuntu, con sudo):
-#   curl -sL https://raw.githubusercontent.com/GustavoUNAL/Portafolio-Maca/main/vps/deploy-on-server.sh | bash
-# o:
 #   git clone ... && sudo bash Portafolio-Maca/vps/deploy-on-server.sh
+# NO apaga Nginx (PM2 sigue corriendo).
 set -euo pipefail
 
 REPO_URL="https://github.com/GustavoUNAL/Portafolio-Maca.git"
@@ -20,8 +19,8 @@ else
   git clone "$REPO_URL" "$WORKDIR"
 fi
 
-echo "==> 2/5 Caddy (sin Nginx)..."
-sudo bash "$WORKDIR/vps/setup-caddy.sh"
+echo "==> 2/5 Vhost Nginx (sin apagar el servicio)..."
+sudo bash "$WORKDIR/vps/setup-nginx-site.sh"
 
 echo "==> 3/5 WordPress en $WP_PATH ..."
 sudo mkdir -p "$WP_PATH"
@@ -55,7 +54,6 @@ fi
 
 cd "$WP_PATH"
 sudo -u www-data wp theme activate nasly || true
-# Si la DB aún tiene URLs locales (tras import manual):
 sudo -u www-data wp option update home "$LIVE_URL" || true
 sudo -u www-data wp option update siteurl "$LIVE_URL" || true
 sudo -u www-data wp search-replace "$LOCAL_URL" "$LIVE_URL" --all-tables --skip-columns=guid 2>/dev/null || true
@@ -64,4 +62,5 @@ sudo -u www-data wp cache flush || true
 
 echo ""
 echo "Listo → $LIVE_URL"
-echo "Si la DB está vacía o desactualizada, desde tu Mac ejecuta: ./deploy.sh"
+echo "Nginx / PM2: sin tocar."
+echo "DB completa desde tu Mac: ./deploy.sh"
