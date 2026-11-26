@@ -9,22 +9,22 @@
 			"defaultGradients": false,
 			"defaultPalette": false,
 			"palette": [
-				{ "slug": "ink", "name": "Vampire Black", "color": "#060409" },
-				{ "slug": "ink-2", "name": "Ink Deep", "color": "#0E0A12" },
-				{ "slug": "surface", "name": "English Violet", "color": "#51375B" },
-				{ "slug": "line", "name": "Violet Line", "color": "#3D2946" },
-				{ "slug": "text", "name": "Text", "color": "#F2EBF7" },
-				{ "slug": "muted", "name": "Pastel Purple", "color": "#AE9ABB" },
-				{ "slug": "dim", "name": "Dim Violet", "color": "#7A6A88" },
-				{ "slug": "magenta", "name": "Blue-Magenta Violet", "color": "#5A3598" },
-				{ "slug": "violet", "name": "Pastel Purple", "color": "#AE9ABB" },
-				{ "slug": "moss", "name": "Old Moss Green", "color": "#768340" },
-				{ "slug": "white", "name": "White", "color": "#F7F4FA" }
+				{ "slug": "ink", "name": "Body Plum", "color": "#3C183C" },
+				{ "slug": "ink-2", "name": "Plum Deep", "color": "#26102A" },
+				{ "slug": "surface", "name": "Plum Surface", "color": "#4E2452" },
+				{ "slug": "line", "name": "Plum Line", "color": "#6B3A6F" },
+				{ "slug": "text", "name": "Fresh Lime", "color": "#CDFC8A" },
+				{ "slug": "muted", "name": "Lime Soft", "color": "#A8D96A" },
+				{ "slug": "dim", "name": "Lime Dim", "color": "#7AA84E" },
+				{ "slug": "magenta", "name": "Fresh Lime", "color": "#CDFC8A" },
+				{ "slug": "violet", "name": "Fresh Lime", "color": "#CDFC8A" },
+				{ "slug": "moss", "name": "Fresh Lime", "color": "#CDFC8A" },
+				{ "slug": "white", "name": "Lime Bright", "color": "#E8FFB0" }
 			]
 		},
 		"custom": {
-			"ink-soft": "#D8CFDE",
-			"moss": "#768340"
+			"ink-soft": "#D2CBFE",
+			"moss": "#CDFC8A"
 		},
 		"layout": {
 			"contentSize": "660px",
@@ -47,6 +47,34 @@
 			"defaultFontSizes": false,
 			"fluid": true,
 			"fontFamilies": [
+				{
+					"fontFamily": "\"Rubik Distressed\", Impact, sans-serif",
+					"name": "Rubik Distressed",
+					"slug": "rubik-distressed",
+					"fontFace": [
+						{
+							"fontFamily": "Rubik Distressed",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": ["file:./assets/fonts/rubik-distressed-400.woff2"]
+						}
+					]
+				},
+				{
+					"fontFamily": "\"Rubik Dirt\", Impact, sans-serif",
+					"name": "Rubik Dirt",
+					"slug": "rubik-dirt",
+					"fontFace": [
+						{
+							"fontFamily": "Rubik Dirt",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": ["file:./assets/fonts/rubik-dirt-400.woff2"]
+						}
+					]
+				},
 				{
 					"fontFamily": "\"Fraunces\", \"Iowan Old Style\", Georgia, serif",
 					"name": "Fraunces",
@@ -175,7 +203,7 @@
 				"border": { "radius": "999px", "width": "0" },
 				"color": {
 					"background": "var(--wp--preset--color--magenta)",
-					"text": "#ffffff"
+					"text": "#022E21"
 				},
 				"typography": {
 					"fontFamily": "var(--wp--preset--font-family--manrope)",
@@ -196,7 +224,7 @@
 				":hover": {
 					"color": {
 						"background": "var(--wp--preset--color--violet)",
-						"text": "#09060F"
+						"text": "#022E21"
 					}
 				}
 			},

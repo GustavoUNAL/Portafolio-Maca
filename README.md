@@ -1,20 +1,45 @@
 # Portafolio-Maca
 
-Portafolio visual de **MACA** — Visual Journal editorial en WordPress (Local).
+Portafolio visual de **MACA** — Visual Journal editorial en WordPress (Local → VPS).
 
-## Contenido
+## Identidad
 
-- Tema personalizado: `app/public/wp-content/themes/nasly`
-- Paleta: Old Moss Green, Vampire Black, English Violet, Blue-Magenta Violet, Pastel Purple
-- Entradas nativas del Visual Journal con layouts editoriales y escenario 3D
+| Elemento | Valor |
+|----------|--------|
+| Header | Negro `#050308` |
+| Fondo | Púrpura `#3C183C` |
+| Texto / acentos | Verde lima `#CDFC8A` |
+| Tipografía display | Fraunces |
+| Tipografía cuerpo | Manrope |
+| Tema | `nasly` |
 
-## Desarrollo local
+## Contenido (Visual Journal)
 
-Sitio Local WP: `http://portafolio.local`
+1. Diseño como herramienta de comunicación  
+2. Sobre mí  
+3. Mi proceso creativo  
+4. La importancia de construir una identidad visual  
+5. Ilustración y narrativa visual (+ 3D)  
+6. Collage digital como medio de expresión emocional  
 
-1. Abrir el sitio en [Local](https://localwp.com/)
-2. Activar el tema **nasly**
-3. Editar textos e imágenes desde Entradas / Medios
+Páginas: Visual Journal · Sobre mí · Contacto  
+
+## Local
+
+Sitio: `http://portafolio.local`  
+Tema activo: **nasly**
+
+## Despliegue al VPS
+
+1. Completa `deploy.env` (ya apunta a `portafolio.texno.site`)
+2. En el VPS debe existir WordPress en `/var/www/portafolio-maca`
+3. Desde esta carpeta:
+
+```bash
+./deploy.sh
+```
+
+Eso sube tema + uploads + base de datos y reemplaza `http://portafolio.local` → `https://portafolio.texno.site`.
 
 ## Repositorio
 

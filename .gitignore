@@ -3,6 +3,13 @@
 *.log
 logs/
 conf/
+app/.envrc
+app/public/local-xdebuginfo.php
+
+# Deploy
+.deploy/
+deploy.env
+deploy.env.local
 
 # Secretos WordPress
 app/public/wp-config.php

@@ -1,20 +1,24 @@
 /* =========================================================================
- MACA — Vampire Black, violets, moss. Fraunces + Manrope
+ MACA — Header negro #050308 · Body púrpura #3C183C · Texto lima #CDFC8A
+ Fraunces (display) + Manrope (body)
  ========================================================================= */
 
 :root {
- --ink: var(--wp--preset--color--ink, #060409);
- --ink-2: var(--wp--preset--color--ink-2, #0E0A12);
- --surface: var(--wp--preset--color--surface, #51375B);
- --line: var(--wp--preset--color--line, #3D2946);
- --line-2: #1A121F;
- --text: var(--wp--preset--color--text, #F2EBF7);
- --text-soft: #D8CFDE;
- --muted: var(--wp--preset--color--muted, #AE9ABB);
- --dim: var(--wp--preset--color--dim, #7A6A88);
- --magenta: var(--wp--preset--color--magenta, #5A3598);
- --violet: var(--wp--preset--color--violet, #AE9ABB);
- --moss: var(--wp--preset--color--moss, #768340);
+ --header: #050308;
+ --ink: var(--wp--preset--color--ink, #3C183C);
+ --ink-2: var(--wp--preset--color--ink-2, #26102A);
+ --surface: var(--wp--preset--color--surface, #4E2452);
+ --line: var(--wp--preset--color--line, #6B3A6F);
+ --line-2: #2E1533;
+ --text: var(--wp--preset--color--text, #CDFC8A);
+ --text-soft: #B8E86A;
+ --muted: var(--wp--preset--color--muted, #A8D96A);
+ --dim: var(--wp--preset--color--dim, #7AA84E);
+ --magenta: var(--wp--preset--color--magenta, #CDFC8A);
+ --violet: var(--wp--preset--color--violet, #CDFC8A);
+ --moss: var(--wp--preset--color--moss, #CDFC8A);
+ --orchid: #C084FC;
+ --forest: #022E21;
  --mono: var(--wp--preset--font-family--jetbrains-mono, "JetBrains Mono", ui-monospace, monospace);
  --display: var(--wp--preset--font-family--fraunces, "Fraunces", Georgia, serif);
  --body: var(--wp--preset--font-family--manrope, "Manrope", sans-serif);
@@ -29,16 +33,17 @@ body {
  -moz-osx-font-smoothing: grayscale;
  text-rendering: optimizeLegibility;
  background:
-  radial-gradient(1000px 580px at 90% -12%, rgba(90, 53, 152, 0.28), transparent 56%),
-  radial-gradient(720px 420px at 0% 35%, rgba(118, 131, 64, 0.1), transparent 48%),
+  radial-gradient(900px 520px at 88% -8%, rgba(192, 132, 252, 0.16), transparent 55%),
+  radial-gradient(700px 400px at 8% 40%, rgba(205, 252, 138, 0.07), transparent 50%),
   var(--ink);
+ color: var(--text);
 }
 
-::selection { background: var(--magenta); color: #fff; }
+::selection { background: var(--moss); color: var(--forest); }
 
 h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
 p { text-wrap: pretty; }
-strong { font-weight: 600; color: #F4F1F8; }
+strong { font-weight: 600; color: var(--text); }
 
 a { text-underline-offset: 3px; text-decoration-thickness: 1px; }
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
@@ -107,22 +112,28 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 /* ---------- Cabecera ---------------------------------------------------- */
 
 .nasly-cabecera {
- position: sticky;
+ position: fixed;
  top: 0;
+ left: 0;
+ right: 0;
+ width: 100%;
  z-index: 50;
  padding-top: 18px;
  padding-bottom: 18px;
- border-bottom: 1px solid transparent;
- background: rgba(6, 4, 9, 0.55);
- -webkit-backdrop-filter: blur(14px);
- backdrop-filter: blur(14px);
- transition: border-color 0.35s var(--ease), background 0.35s var(--ease), padding 0.35s var(--ease);
+ border-bottom: 1px solid rgba(210, 203, 254, 0.08);
+ background: var(--header);
+ -webkit-backdrop-filter: none;
+ backdrop-filter: none;
 }
 .nasly-cabecera.is-scrolled {
- border-bottom-color: var(--line-2);
- background: rgba(6, 4, 9, 0.82);
- padding-top: 12px;
- padding-bottom: 12px;
+ border-bottom-color: rgba(210, 203, 254, 0.08);
+ background: var(--header);
+ padding-top: 18px;
+ padding-bottom: 18px;
+}
+/* Compensa el header fijo para que el contenido no quede debajo */
+.wp-site-blocks {
+ padding-top: 74px;
 }
 
 .nasly-marca { gap: 4px 12px; }
@@ -237,10 +248,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .nasly-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
 .nasly-chips .wp-block-post-terms__separator { display: none; }
 .nasly-chip--hot,
-.nasly-chips a { color: var(--violet); border-color: rgba(90, 53, 152, 0.5); }
+.nasly-chips a { color: var(--violet); border-color: rgba(205, 252, 138, 0.5); }
 .nasly-chip { transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease); }
 .nasly-chips a:hover,
-.nasly-chip--hot:hover { background: var(--magenta); border-color: var(--magenta); color: #fff; transform: translateY(-1px); }
+.nasly-chip--hot:hover { background: var(--moss); border-color: var(--moss); color: var(--forest); transform: translateY(-1px); }
 
 .nasly-titular,
 .nasly-hero .wp-block-post-title,
@@ -253,7 +264,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
  margin: 0;
  max-width: 14ch;
 }
-.nasly-titular em { font-style: italic; font-weight: 600; color: var(--violet); }
+.nasly-titular em { font-style: italic; font-weight: 600; color: var(--moss); }
 .nasly-hero--corto .nasly-titular { font-size: clamp(2.4rem, 6vw, 4.6rem); max-width: 18ch; }
 
 .nasly-hero .is-style-entrada,
@@ -385,7 +396,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
  left: auto;
  right: 12px;
  color: var(--magenta);
- border-color: rgba(90, 53, 152, 0.45);
+ border-color: rgba(205, 252, 138, 0.45);
 }
 .nasly-comparador__manija {
  position: absolute;
@@ -456,7 +467,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
  border: 1px solid var(--line-2);
  background: #0B0910;
 }
-.wp-block-image.is-style-final img { border-color: rgba(90, 53, 152, 0.55); }
+.wp-block-image.is-style-final img { border-color: rgba(205, 252, 138, 0.55); }
 .wp-block-image.is-style-final figcaption { color: var(--magenta); }
 
 .nasly-pliegos { display: grid; gap: 22px; margin-top: 32px; }
@@ -609,7 +620,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
  content: "";
  position: absolute;
  inset: 0;
- background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 40%), rgba(90, 53, 152, 0.28), transparent 55%);
+ background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 40%), rgba(205, 252, 138, 0.28), transparent 55%);
  opacity: 0;
  transition: opacity 0.35s var(--ease);
  pointer-events: none;
@@ -621,7 +632,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .nasly-tarjeta:hover { transform: translateY(-6px); }
 .nasly-tarjeta:hover .wp-block-post-featured-image img { transform: scale(1.06); filter: saturate(1.08); }
 .nasly-tarjeta:hover .wp-block-post-featured-image {
- border-color: rgba(90, 53, 152, 0.55);
+ border-color: rgba(205, 252, 138, 0.55);
  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 .nasly-tarjeta:hover .wp-block-post-featured-image::after { opacity: 1; }
@@ -839,7 +850,28 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  font-family: var(--display);
  font-style: italic;
  font-weight: 550;
- color: var(--violet);
+ color: var(--moss);
+}
+
+/* Hero portada — tipografía editorial MACA */
+.maca-hero-titular {
+ font-family: var(--display) !important;
+ font-weight: 700 !important;
+ font-size: clamp(2.75rem, 7.5vw, 5.85rem) !important;
+ line-height: 0.94 !important;
+ letter-spacing: -0.045em !important;
+ max-width: 11ch !important;
+ color: var(--text);
+ font-optical-sizing: auto;
+ font-variation-settings: "SOFT" 40, "WONK" 0.4, "opsz" 144;
+}
+.maca-hero-titular em {
+ display: inline;
+ color: var(--moss) !important;
+ font-style: italic;
+ font-weight: 560 !important;
+ font-variation-settings: "SOFT" 70, "WONK" 0.85, "opsz" 144;
+ letter-spacing: -0.03em;
 }
 .nasly-logo a:hover .nasly-wordmark__mark,
 .nasly-wordmark:hover .nasly-wordmark__mark { color: var(--magenta); }
@@ -862,20 +894,26 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 }
 .nasly-pie__firma > .nasly-logo-pie + * { margin-top: 18px; }
 
-.nasly-retrato {
+.nasly-retrato,
+.maca-perfil {
  margin: 0 0 34px;
  overflow: hidden;
  border: 1px solid var(--line-2);
  background: var(--ink-2);
  max-width: 420px;
 }
-.nasly-retrato img {
+.nasly-retrato img,
+.maca-perfil img {
  display: block;
  width: 100%;
  height: auto;
  aspect-ratio: 4 / 5;
  object-fit: cover;
  object-position: center top;
+}
+.maca-single .maca-perfil {
+ max-width: 480px;
+ margin: 28px 0 8px;
 }
 .nasly-hero--portada { position: relative; }
 .nasly-monograma {
@@ -912,7 +950,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 .wp-element-button:hover,
 .wp-block-button__link:hover {
  transform: translateY(-2px);
- box-shadow: 0 12px 28px rgba(90, 53, 152, 0.35);
+ box-shadow: 0 12px 28px rgba(2, 46, 33, 0.35);
 }
 .wp-element-button:active,
 .wp-block-button__link:active { transform: translateY(0); }
@@ -935,7 +973,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  transition: border-color 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .nasly-cta:hover {
- border-color: rgba(90, 53, 152, 0.45);
+ border-color: rgba(205, 252, 138, 0.45);
  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
 }
 
@@ -1034,15 +1072,24 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  overflow: hidden;
  border: 1px solid var(--line-2);
  background: var(--ink-2);
+ box-shadow: 0 18px 40px rgba(5, 3, 8, 0.35);
 }
 .maca-entrada__media img {
  display: block;
  width: 100%;
  height: auto;
+ object-fit: cover;
+ object-position: center 20%;
+ filter: contrast(1.04) saturate(1.08);
  transition: transform 0.7s var(--ease), filter 0.4s var(--ease);
 }
-.maca-entrada:hover .maca-entrada__media img { transform: scale(1.04); filter: saturate(1.05); }
-.maca-entrada:hover .maca-entrada__media .wp-block-post-featured-image { border-color: rgba(90, 53, 152, 0.55); }
+.maca-entrada:hover .maca-entrada__media img {
+ transform: scale(1.05);
+ filter: contrast(1.06) saturate(1.15);
+}
+.maca-entrada:hover .maca-entrada__media .wp-block-post-featured-image {
+ border-color: rgba(205, 252, 138, 0.55);
+}
 
 @media (max-width: 781px) {
  .wp-block-columns.maca-entrada__row {
@@ -1082,7 +1129,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  width: 100%;
  height: auto;
  border: 1px solid var(--line-2);
- background: #0A0710;
+ background: var(--ink-2);
 }
 .maca-duo--stack { grid-template-columns: 1fr; max-width: 720px; }
 .maca-duo--split { grid-template-columns: 1.1fr 0.9fr; align-items: end; }
@@ -1151,9 +1198,9 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 }
 
 /* Accent tweaks for MACA chips/buttons */
-.nasly-chip--hot { color: var(--moss); border-color: rgba(118, 131, 64, 0.55); }
+.nasly-chip--hot { color: var(--moss); border-color: rgba(205, 252, 138, 0.55); }
 .is-style-eyebrow { color: var(--moss); }
-.nasly-cabecera.is-scrolled { background: rgba(6, 4, 9, 0.88); }
+.nasly-cabecera.is-scrolled { background: var(--header); }
 
 /* ---------- MACA 3D video stage ----------------------------------------- */
 
@@ -1222,11 +1269,11 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  width: 100%;
  aspect-ratio: 1 / 1;
  object-fit: cover;
- background: #0A0710;
+ background: var(--ink-2);
  border: 1px solid rgba(174, 154, 187, 0.35);
  box-shadow:
   0 28px 60px rgba(0, 0, 0, 0.55),
-  0 0 0 1px rgba(90, 53, 152, 0.18);
+  0 0 0 1px rgba(205, 252, 138, 0.18);
 }
 
 .maca-stage3d__card figcaption {
@@ -1251,7 +1298,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 
 .maca-stage3d__btn {
  appearance: none;
- border: 1px solid rgba(118, 131, 64, 0.45);
+ border: 1px solid rgba(205, 252, 138, 0.45);
  background: transparent;
  color: var(--text);
  font-family: var(--mono);
@@ -1266,7 +1313,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 .maca-stage3d__btn:hover {
  border-color: var(--moss);
  color: var(--moss);
- background: rgba(118, 131, 64, 0.08);
+ background: rgba(205, 252, 138, 0.08);
 }
 
 .maca-stage3d__dots {
@@ -1298,7 +1345,7 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
  bottom: 18%;
  height: 42%;
  background:
-  radial-gradient(ellipse at center, rgba(90, 53, 152, 0.22), transparent 70%);
+  radial-gradient(ellipse at center, rgba(205, 252, 138, 0.22), transparent 70%);
  transform: rotateX(78deg);
  opacity: 0.85;
 }
@@ -1312,4 +1359,92 @@ body.nasly-en-portafolio .nasly-filtros .nasly-filtro-todo a {
 
 @media (prefers-reduced-motion: reduce) {
  .maca-stage3d__ring { transition: none; }
+}
+
+/* ---------- MACA collage mosaic ----------------------------------------- */
+
+.maca-collage-grid {
+ display: grid;
+ grid-template-columns: 1.15fr 0.85fr 1fr;
+ grid-template-areas:
+  "a a b"
+  "c d e";
+ gap: clamp(12px, 2vw, 20px);
+ margin: 36px 0 8px;
+ align-items: stretch;
+}
+.maca-collage-grid > * { margin: 0 !important; }
+.maca-collage-grid img {
+ display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ border: 1px solid var(--line-2);
+ background: var(--ink-2);
+}
+.maca-collage-grid__a { grid-area: a; }
+.maca-collage-grid__b { grid-area: b; }
+.maca-collage-grid__c { grid-area: c; }
+.maca-collage-grid__d { grid-area: d; }
+.maca-collage-grid__e { grid-area: e; }
+.maca-collage-grid__a img { aspect-ratio: 16 / 10; }
+.maca-collage-grid__b img,
+.maca-collage-grid__c img,
+.maca-collage-grid__d img,
+.maca-collage-grid__e img { aspect-ratio: 3 / 4; }
+
+@media (max-width: 781px) {
+ .maca-collage-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+   "a a"
+   "b c"
+   "d e";
+ }
+}
+
+/* Galería completa de collage digital */
+.maca-collage-gallery {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: clamp(12px, 2vw, 22px);
+ margin: 36px 0 12px;
+}
+.maca-collage-gallery > * { margin: 0 !important; }
+.maca-collage-gallery__item img {
+ display: block;
+ width: 100%;
+ aspect-ratio: 3 / 4;
+ object-fit: cover;
+ border: 1px solid var(--line-2);
+ background: var(--ink-2);
+ transition: border-color 0.3s var(--ease), transform 0.35s var(--ease);
+}
+.maca-collage-gallery__item:hover img {
+ border-color: rgba(205, 252, 138, 0.45);
+ transform: translateY(-3px);
+}
+.maca-collage-gallery__item:nth-child(3n+1) img { aspect-ratio: 4 / 5; }
+.maca-collage-gallery__item:nth-child(5) img,
+.maca-collage-gallery__item:nth-child(11) img {
+ aspect-ratio: 1 / 1;
+}
+.maca-collage-gallery__item:nth-child(1),
+.maca-collage-gallery__item:nth-child(8) {
+ grid-column: span 2;
+}
+.maca-collage-gallery__item:nth-child(1) img,
+.maca-collage-gallery__item:nth-child(8) img {
+ aspect-ratio: 16 / 10;
+}
+
+@media (max-width: 781px) {
+ .maca-collage-gallery { grid-template-columns: 1fr 1fr; }
+ .maca-collage-gallery__item:nth-child(1),
+ .maca-collage-gallery__item:nth-child(8) { grid-column: span 2; }
+}
+@media (max-width: 520px) {
+ .maca-collage-gallery { grid-template-columns: 1fr; }
+ .maca-collage-gallery__item:nth-child(1),
+ .maca-collage-gallery__item:nth-child(8) { grid-column: span 1; }
 }

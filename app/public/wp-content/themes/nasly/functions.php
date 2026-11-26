@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NASLY_VERSION', '2.1.0' );
+define( 'NASLY_VERSION', '2.5.0' );
 
 /**
  * Soporte del tema, estilos de bloque y assets.
@@ -146,6 +146,25 @@ function nasly_enqueue_assets(): void {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'nasly_enqueue_assets' );
+
+/**
+ * Mantener GIFs animados: no usar tamaños intermedios estáticos.
+ */
+function nasly_keep_gif_animation( $out, $id ) {
+	$mime = get_post_mime_type( $id );
+	if ( 'image/gif' !== $mime ) {
+		return $out;
+	}
+	$url = wp_get_attachment_url( $id );
+	if ( ! $url ) {
+		return $out;
+	}
+	$meta = wp_get_attachment_metadata( $id );
+	$w    = isset( $meta['width'] ) ? (int) $meta['width'] : 0;
+	$h    = isset( $meta['height'] ) ? (int) $meta['height'] : 0;
+	return array( $url, $w, $h, false );
+}
+add_filter( 'image_downsize', 'nasly_keep_gif_animation', 10, 2 );
 
 /**
  * Favicon Camm: pisa cualquier icono por defecto (p. ej. la W de WordPress).
