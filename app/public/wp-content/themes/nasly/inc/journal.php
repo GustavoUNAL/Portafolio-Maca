@@ -138,9 +138,45 @@ function maca_get_entry( string $slug ): ?array {
 }
 
 /**
- * URL pública de una entrada.
+ * Posts del Visual Journal registrados en WordPress.
+ *
+ * @return WP_Post[]
+ */
+function maca_get_journal_posts(): array {
+	$posts = get_posts(
+		array(
+			'post_type'      => 'post',
+			'post_status'    => 'publish',
+			'posts_per_page' => 20,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
+			'meta_key'       => '_maca_journal_slug', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+		)
+	);
+	if ( $posts ) {
+		return $posts;
+	}
+	// Fallback por categoría.
+	return get_posts(
+		array(
+			'post_type'      => 'post',
+			'post_status'    => 'publish',
+			'posts_per_page' => 20,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
+			'category_name'  => 'visual-journal',
+		)
+	);
+}
+
+/**
+ * URL pública de una entrada (permalink WP si existe).
  */
 function maca_entry_url( string $slug ): string {
+	$post = get_page_by_path( $slug, OBJECT, 'post' );
+	if ( $post instanceof WP_Post ) {
+		return get_permalink( $post ) ?: home_url( '/visual-journal/' . $slug . '/' );
+	}
 	return home_url( '/visual-journal/' . $slug . '/' );
 }
 
@@ -236,12 +272,39 @@ function maca_render_entry_body( array $entry ): string {
 }
 
 /**
- * Fila de listado (home / archivo).
+ * Fila de listado desde datos estáticos.
  *
  * @param array<string, mixed> $entry
  */
 function maca_render_entrada_row( array $entry ): string {
-	$url = esc_url( maca_entry_url( $entry['slug'] ) );
+	$url   = esc_url( maca_entry_url( $entry['slug'] ) );
+	$thumb = maca_asset( $entry['thumb'] );
+	return maca_render_entrada_markup( $url, $entry['title'], $entry['excerpt'], $thumb );
+}
+
+/**
+ * Fila de listado desde un post de WordPress.
+ */
+function maca_render_entrada_from_post( WP_Post $post ): string {
+	$url   = esc_url( get_permalink( $post ) ?: '#' );
+	$title = get_the_title( $post );
+	$excerpt = has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_trim_words( wp_strip_all_tags( $post->post_content ), 28 );
+	$thumb = get_the_post_thumbnail_url( $post, 'large' );
+	if ( ! $thumb ) {
+		$slug  = (string) get_post_meta( $post->ID, '_maca_journal_slug', true );
+		$entry = $slug ? maca_get_entry( $slug ) : null;
+		$thumb = $entry ? maca_asset( $entry['thumb'] ) : '';
+	}
+	return maca_render_entrada_markup( $url, $title, $excerpt, $thumb ?: '' );
+}
+
+/**
+ * Markup común de fila.
+ */
+function maca_render_entrada_markup( string $url, string $title, string $excerpt, string $thumb ): string {
+	$img = $thumb
+		? sprintf( '<a href="%s"><img src="%s" alt="%s" loading="lazy" decoding="async"/></a>', $url, esc_url( $thumb ), esc_attr( $title ) )
+		: '';
 	return sprintf(
 		'<article class="maca-entrada">
 			<div class="maca-entrada__row">
@@ -252,27 +315,30 @@ function maca_render_entrada_row( array $entry ): string {
 					<h2 class="maca-entrada__heading"><a href="%s">%s</a></h2>
 					<p class="maca-entrada__excerpt">%s</p>
 				</div>
-				<div class="maca-entrada__media">
-					<a href="%s"><img src="%s" alt="%s" loading="lazy" decoding="async"/></a>
-				</div>
+				<div class="maca-entrada__media">%s</div>
 			</div>
 		</article>',
 		$url,
-		esc_html( $entry['title'] ),
-		esc_html( $entry['excerpt'] ),
-		$url,
-		esc_url( maca_asset( $entry['thumb'] ) ),
-		esc_attr( $entry['title'] )
+		esc_html( $title ),
+		esc_html( $excerpt ),
+		$img
 	);
 }
 
 /**
- * Listado completo.
+ * Listado completo — prioriza posts reales del admin.
  */
 function maca_render_journal_list(): string {
-	$out = '<div class="maca-journal__query"><div class="maca-journal__list">';
-	foreach ( maca_journal_entries() as $entry ) {
-		$out .= maca_render_entrada_row( $entry );
+	$out   = '<div class="maca-journal__query"><div class="maca-journal__list">';
+	$posts = maca_get_journal_posts();
+	if ( $posts ) {
+		foreach ( $posts as $post ) {
+			$out .= maca_render_entrada_from_post( $post );
+		}
+	} else {
+		foreach ( maca_journal_entries() as $entry ) {
+			$out .= maca_render_entrada_row( $entry );
+		}
 	}
 	$out .= '</div></div>';
 	return $out;
@@ -319,6 +385,16 @@ function maca_template_include( string $template ): string {
 
 	$entry = get_query_var( 'maca_entry' );
 	if ( is_string( $entry ) && $entry !== '' ) {
+		$wp_post = get_page_by_path( $entry, OBJECT, 'post' );
+		if ( $wp_post instanceof WP_Post ) {
+			global $post, $wp_query;
+			$post = $wp_post;
+			setup_postdata( $post );
+			$wp_query->is_singular = true;
+			$wp_query->is_single   = true;
+			$wp_query->is_404      = false;
+			return $dir . '/entry.php';
+		}
 		if ( ! maca_get_entry( $entry ) ) {
 			global $wp_query;
 			$wp_query->set_404();
@@ -340,7 +416,12 @@ function maca_template_include( string $template ): string {
 		return $dir . '/sobre-mi.php';
 	}
 
-	// Portada / blog index: siempre el Visual Journal estático (nunca "Hello world").
+	// Single post del journal → misma plantilla editorial.
+	if ( is_singular( 'post' ) ) {
+		return $dir . '/entry.php';
+	}
+
+	// Portada / blog index: Visual Journal (posts WP o fallback).
 	if ( is_front_page() || is_home() ) {
 		return $dir . '/home.php';
 	}
